@@ -7,6 +7,10 @@ apricot_data <- read.csv("data/apricot_transcript_counts.csv", header = T, row.n
 cherry_data <- read.csv("data/cherry_transcript_count.csv", header = T, row.names = 1)
 RBH <- read.table("data/reciprocal_best_hits.txt")
 
+rownames(cherry_data) <- gsub("MSTRG.\\d+;","",rownames(peach_data))
+rownames(peach_data) <- gsub("MSTRG.\\d+;","",rownames(peach_data))
+rownames(apricot_data) <- gsub("MSTRG.\\d+;","",rownames(apricot_data))
+
 # Extract the transcripts in RBH from all three species
 cherry_filter <- merge(cherry_data, RBH, by.x = "row.names", by.y = "V2") # add the peach gene corresponding to cherry
 cherry_filter <- na.omit(cherry_filter) # only keep the cherry genes have peach hits
@@ -27,6 +31,7 @@ combined_data <- transform(merge(combined_data, apricot_filter, by="row.names", 
 combined_data <- transform(merge(combined_data, cherry_filter[,2:7], by="row.names", all.x = T), row.names=Row.names, Row.names=NULL)
 
 # normalized the gene counts for combined dataset ???
+
 
 # Calculate JSD, will be using the package philentropy
 install.packages("philentropy") # only need to run once for installation
