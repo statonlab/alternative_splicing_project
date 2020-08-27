@@ -14,4 +14,4 @@ annotation <- annotation[!duplicated(annotation[,1]),] # remove the isoforms
 genes_annot <- annotation[annotation$locusName %in% genes, c(1,4,9:12)] # only keep the pfam, GO and Arabidopsis hit columns
 
 # output the gene_annot file as csv format
-write.csv(genes_annot, paste0(filename,"annot.csv"))
+write.csv(genes_annot, paste0(filename,"_annot.csv"))
